@@ -11,7 +11,6 @@ export class SettingsService {
     if(this.themeSaved){
       this.linkTheme?.setAttribute('href',this.themeSaved)
     }
-    console.log(`Services settings`)
   }
 
   changeTheme(color:string,links:NodeListOf<Element>){

@@ -15,17 +15,28 @@ export class SidebarService {
           route:'/dashboard'
         },
         {
+          title:'Graficas',
+          icon:null,
+          route:'/dashboard/grafica1'
+        },
+        {
           title:'Progresbar',
           icon:null,
           route:'/dashboard/progress'
         },
         {
-          title:'Graficas',
+          title:'Promesas',
           icon:null,
-          route:'/dashboard/grafica1'
+          route:'/dashboard/promesas'
+        },
+        {
+          title:'Rxjs',
+          icon:null,
+          route:'/dashboard/rxjs'
         },
       ]
-    }
+    },
+
   ]
 
   constructor() {
