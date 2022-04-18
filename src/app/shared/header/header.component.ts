@@ -8,8 +8,10 @@ import { UsuariosService } from 'src/app/services/usuarios/usuarios.service';
   ]
 })
 export class HeaderComponent{
-
-  constructor(private usuariosService:UsuariosService) { }
+  public infoUser:any
+  constructor(private usuariosService:UsuariosService) {
+    this.infoUser = this.usuariosService.getInfoUser
+  }
 
   logout(){
     this.usuariosService.logout()

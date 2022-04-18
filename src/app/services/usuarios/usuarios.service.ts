@@ -3,6 +3,7 @@ import { Injectable, NgZone } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable, of } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
+import { Usuario } from 'src/app/models/usuarios/usuarios.model';
 import { environment } from 'src/environments/environment';
 import { RegisterForm } from '../../interfaces/register-form.interface'
 const base_url = environment.base_url
@@ -18,6 +19,7 @@ export class UsuariosService {
   }
 
   public auth2:any
+  public usuario!:Usuario
 
   googleInit(){
     return new Promise((resolve)=>{
@@ -53,12 +55,14 @@ export class UsuariosService {
         'x-token':token
       }
     }).pipe(
-      tap((resp:any)=>{
-        const { token } = resp
-        localStorage.setItem('token',token)
+      map((resp:any)=>{
+          const { token } = resp
+          const { email, google, id,img='not-aviable',nombre,role } =  resp.usuario
+          this.usuario = new Usuario(id,nombre,email,'',google,img,role,)
+          localStorage.setItem('token',token)
+          return true;
         }
       ),
-      map(resp=> true),
       catchError(error => of(false))
     )
   }
@@ -70,5 +74,19 @@ export class UsuariosService {
         localStorage.setItem('token',token)
       }
     ))
+  }
+
+  get getInfoUser(){
+    const usuario = this.usuario;
+    return {
+      ...usuario,
+      ...{img:this.usuario.getUrlImg},
+      ...{id:usuario.id}
+    }
+  }
+
+  updateUser(usuario:Usuario){
+    const { id } = usuario
+    return this.http.put(`${base_url}/usuarios/${id}`,usuario)
   }
 }

@@ -1,0 +1,64 @@
+<div class="row">
+    <!-- Column -->
+    <div class="col-lg-4 col-xlg-3 col-md-5">
+        <div class="card">
+            <div class="card-body">
+                <div class="m-t-30">
+                    <img [src]="usuario.img" class="img-circle" width="150" />
+                    <h4 class="card-title m-t-10">{{usuario.nombre}}</h4>
+                </div>
+            </div>
+            <div>
+                <hr/>
+            </div>
+            <div class="card-body">
+                <small class="text-muted">Email address </small>
+                <h6>{{usuario.email}}</h6>
+            </div>
+        </div>
+    </div>
+    <!-- Column -->
+    <!-- Column -->
+    <div class="col-lg-8 col-xlg-9 col-md-7">
+        <div class="card">
+            <!-- Nav tabs -->
+            <ul class="nav nav-tabs profile-tab" role="tablist">
+                <li class="nav-item">
+                    <a class="nav-link" data-toggle="tab" href="#settings" role="tab">Settings</a>
+                </li>
+            </ul>
+            <!-- Tab panes -->
+            <div class="tab-content">
+                <div class="tab-pane active" id="settings" role="tabpanel">
+                    <div class="card-body">
+                        <form class="form p-t-20" [formGroup]="updateForm" (ngSubmit)="updateUser()">
+                            <div class="form-group">
+                                <label for="exampleInputuname">User Name</label>
+                                <div class="input-group">
+                                    <div class="input-group-addon"><i class="ti-user"></i></div>
+                                    <input type="text" class="form-control" formControlName="nombre" placeholder="Username">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">Email address</label>
+                                <div class="input-group">
+                                    <div class="input-group-addon"><i class="ti-email"></i></div>
+                                    <input type="email" class="form-control" formControlName="email" placeholder="Enter email">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="pwd2">Avatar</label>
+                                <div class="input-group">
+                                    <div class="input-group-addon"><i class="ti-image"></i></div>
+                                    <input type="file" formControlName="img" class="form-control" id="pwd2" placeholder="Enter email">
+                                </div>
+                            </div>
+                            <button type="submit" class="btn btn-success waves-effect waves-light m-r-10">Update Profile</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Column -->
+</div>

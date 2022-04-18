@@ -1,3 +1,7 @@
+import { environment } from "src/environments/environment";
+
+const base_url = environment.base_url
+
 export class Usuario {
   constructor(
     public id:string,
@@ -10,4 +14,9 @@ export class Usuario {
 
   ){}
 
+  //http://localhost:3005/api/uploads/usuarios/c8a085b1-572a-4aa4-9fc5-a4884881157a.jpg
+  get getUrlImg(){
+    if(this.img?.includes('https')) return this.img
+    return `${base_url}/uploads/usuarios/${this.img}`
+  }
 }
