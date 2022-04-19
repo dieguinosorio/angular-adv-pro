@@ -8,7 +8,7 @@
         <nav class="sidebar-nav">
             <ul id="sidebarnav">
                 <li class="user-profile">
-                    <a class="has-arrow waves-effect waves-dark" href="#" aria-expanded="false"><img [src]="infoUser.img" alt="user" /><span class="hide-menu">{{infoUser.nombre}}</span></a>
+                    <a class="has-arrow waves-effect waves-dark" href="#" aria-expanded="false"><img [src]="infoUser.getUrlImg" alt="user" /><span class="hide-menu">{{infoUser.nombre}}</span></a>
                     <ul aria-expanded="false" class="collapse">
                         <li><a routerLink="./profile">My Profile </a></li>
                         <li><a href="javascript:void()">My Balance</a></li>

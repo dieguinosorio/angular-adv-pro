@@ -11,10 +11,10 @@ import { UsuariosService } from 'src/app/services/usuarios/usuarios.service';
 export class SidebarComponent {
 
   public menuItems:any[];
-  public infoUser:any
+  public infoUser:Usuario
   constructor(private sidebarService:SidebarService,private usuariosService:UsuariosService) {
     this.menuItems = sidebarService.menu
-    this.infoUser = this.usuariosService.getInfoUser
+    this.infoUser = this.usuariosService.usuario
   }
 
   logout(){

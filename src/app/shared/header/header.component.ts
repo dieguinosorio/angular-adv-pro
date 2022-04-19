@@ -10,7 +10,7 @@ import { UsuariosService } from 'src/app/services/usuarios/usuarios.service';
 export class HeaderComponent{
   public infoUser:any
   constructor(private usuariosService:UsuariosService) {
-    this.infoUser = this.usuariosService.getInfoUser
+    this.infoUser = this.usuariosService.usuario
   }
 
   logout(){

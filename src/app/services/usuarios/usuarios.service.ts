@@ -2,10 +2,11 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable, NgZone } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable, of } from 'rxjs';
-import { catchError, map, tap } from 'rxjs/operators';
+import { catchError, map, tap, filter } from 'rxjs/operators';
 import { Usuario } from 'src/app/models/usuarios/usuarios.model';
 import { environment } from 'src/environments/environment';
 import { RegisterForm } from '../../interfaces/register-form.interface'
+import { UploadService } from '../uploads/upload.service';
 const base_url = environment.base_url
 declare const gapi:any
 
@@ -14,7 +15,11 @@ declare const gapi:any
 })
 export class UsuariosService {
 
-  constructor(private http:HttpClient,private router:Router,private ngZone:NgZone) {
+  constructor(
+    private http:HttpClient,
+    private router:Router,
+    private ngZone:NgZone,
+    ) {
     this.googleInit();
   }
 
@@ -49,10 +54,9 @@ export class UsuariosService {
   }
 
   validarToken():Observable<boolean>{
-    const token  = localStorage.getItem('token') || ''
     return this.http.get(`${base_url}/login/renew`,{
       headers:{
-        'x-token':token
+        'x-token':this.token
       }
     }).pipe(
       map((resp:any)=>{
@@ -68,7 +72,11 @@ export class UsuariosService {
   }
 
   createUser(formData:RegisterForm){
-    return this.http.post(`${base_url}/usuarios`,formData).pipe(
+    return this.http.post(`${base_url}/usuarios`,formData,{
+      headers:{
+        'x-token':this.token
+      }
+    }).pipe(
       tap((resp:any)=>{
         const { token } = resp
         localStorage.setItem('token',token)
@@ -76,17 +84,19 @@ export class UsuariosService {
     ))
   }
 
-  get getInfoUser(){
-    const usuario = this.usuario;
-    return {
-      ...usuario,
-      ...{img:this.usuario.getUrlImg},
-      ...{id:usuario.id}
-    }
+  get token():string {
+    return localStorage.getItem('token') || ''
+  }
+
+  get id():string{
+    return this.usuario.id
   }
 
   updateUser(usuario:Usuario){
-    const { id } = usuario
-    return this.http.put(`${base_url}/usuarios/${id}`,usuario)
+    return this.http.put(`${base_url}/usuarios/${this.id}`,usuario,{
+      headers:{
+        'x-token':this.token
+      }
+    })
   }
 }

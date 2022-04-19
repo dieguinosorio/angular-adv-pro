@@ -4,7 +4,7 @@
         <div class="card">
             <div class="card-body">
                 <div class="m-t-30">
-                    <img [src]="usuario.img" class="img-circle" width="150" />
+                    <img [src]="usuario.getUrlImg" class="img-circle" width="150" />
                     <h4 class="card-title m-t-10">{{usuario.nombre}}</h4>
                 </div>
             </div>
@@ -38,22 +38,34 @@
                                     <div class="input-group-addon"><i class="ti-user"></i></div>
                                     <input type="text" class="form-control" formControlName="nombre" placeholder="Username">
                                 </div>
+                                <div *ngIf="form.nombre.touched && form.nombre.invalid" class="alert alert-danger alert-sm">
+                                  <div *ngIf="form.nombre.errors?.required">Name is required</div>
+                                  <div *ngIf="form.nombre.errors?.minlength">Name should be 3 character.</div>
+                                </div>
                             </div>
                             <div class="form-group">
                                 <label for="exampleInputEmail1">Email address</label>
                                 <div class="input-group">
                                     <div class="input-group-addon"><i class="ti-email"></i></div>
-                                    <input type="email" class="form-control" formControlName="email" placeholder="Enter email">
+                                    <input type="email" class="form-control" [readOnly]="usuario.google" formControlName="email" placeholder="Enter email">
+                                </div>
+                                <div *ngIf="form.email.touched && form.email.invalid" class="alert alert-danger alert-sm">
+                                  <div *ngIf="form.email.errors?.required">Email is required</div>
+                                  <div *ngIf="form.email.errors?.email">Incorrect email.</div>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label for="pwd2">Avatar</label>
                                 <div class="input-group">
                                     <div class="input-group-addon"><i class="ti-image"></i></div>
-                                    <input type="file" formControlName="img" class="form-control" id="pwd2" placeholder="Enter email">
+                                    <input type="file" class="form-control" id="pwd2" (change)="changeImg($event)" placeholder="Enter email">
+                                </div>
+                                <div *ngIf="imgPrev" class="m-t-30">
+                                  <img [src]="imgPrev" class="img-circle" alt="prev">
                                 </div>
                             </div>
                             <button type="submit" class="btn btn-success waves-effect waves-light m-r-10">Update Profile</button>
+                            <button type="button" class="btn btn-info waves-effect waves-light m-r-10" (click)="onCancelUpdate()">Cancel</button>
                         </form>
                     </div>
                 </div>
