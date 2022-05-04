@@ -44,11 +44,11 @@
                 </thead>
                 <tbody>
                     <tr *ngFor="let user of usuarios">
-                        <td class="text-center"><img [src]="user.getUrlImg" class="img-avatar" [alt]="user.nombre"></td>
+                        <td class="text-center cursor"><img [src]="user.getUrlImg" class="img-avatar" [alt]="user.nombre" (click)="showModal(user)"></td>
                         <td>{{user.nombre}}</td>
                         <td>{{user.email}}</td>
                         <td>
-                          <select class="form-control w140">
+                          <select class="form-control w140" [(ngModel)]="user.role" (change)="changeRole(user)">
                             <option value="USER_ROLE">User</option>
                             <option value="ADMIN_ROLE">Admin</option>
                           </select>

@@ -29,7 +29,9 @@ export class ProfileComponent {
   updateUser(){
     if(!this.updateForm.valid) return
     const objUsuario = this.updateForm.value
-    objUsuario.role = 'USER_ROLE'
+    objUsuario.id = this.usuario.id
+    objUsuario.role = this.usuario.role
+    console.log(objUsuario)
     this.usuarioService.updateUser(objUsuario).subscribe((res:any)=>{
       const { email,nombre } =  res.usuario
       this.usuario.nombre = nombre;

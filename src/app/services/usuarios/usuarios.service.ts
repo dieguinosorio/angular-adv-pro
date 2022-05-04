@@ -96,7 +96,7 @@ export class UsuariosService {
   }
 
   updateUser(usuario:Usuario){
-    return this.http.put(`${base_url}/usuarios/${this.id}`,usuario,this.headers)
+    return this.http.put(`${base_url}/usuarios/${usuario.id}`,usuario,this.headers)
   }
 
   getUsers(desde:number=0){
