@@ -1,14 +1,14 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
+import { FormsModule } from '@angular/forms';
 import { FooterComponent } from './footer/footer.component';
 import { BredcrumbsComponent } from './bredcrumbs/bredcrumbs.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { HeaderComponent } from './header/header.component';
 import { UsersComponent } from './maintenance/users/users.component';
-import { FormsModule } from '@angular/forms';
-
-
+import { HospitalsComponent } from './maintenance/hospitals/hospitals.component';
+import { DoctorsComponent } from './maintenance/doctors/doctors.component';
 
 @NgModule({
   declarations: [
@@ -16,14 +16,17 @@ import { FormsModule } from '@angular/forms';
     SidebarComponent,
     HeaderComponent,
     FooterComponent,
-    UsersComponent
+    UsersComponent,
+    HospitalsComponent,
+    DoctorsComponent,
   ],
   exports:[
     BredcrumbsComponent,
     SidebarComponent,
     HeaderComponent,
     FooterComponent,
-    UsersComponent
+    UsersComponent,
+    HospitalsComponent
   ],
 
   imports: [

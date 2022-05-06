@@ -13,13 +13,11 @@ export class ModalImageComponent implements OnInit{
 
 
   constructor(public modalService:ModalService,private uploadService:UploadService) {}
-  public user!:Usuario
   public tipo:string;
   public imgUpload:File
   public imgPrev:any
 
   ngOnInit(): void {
-      this.user = this.modalService.user
   }
 
   hideModal(){
@@ -39,10 +37,24 @@ export class ModalImageComponent implements OnInit{
   }
 
   uploadImg(){
+    const id = () =>{
+      let id = null;
+      switch(this.modalService.tipo){
+        case 'usuarios':
+          id = this.modalService.user.id
+          break;
+
+        case 'hospitales':
+          console.log("Entro")
+          id = this.modalService.hospital.id
+          break;
+      }
+      return id
+    }
     this.uploadService.updateImg(this.modalService.tipo as any,this.modalService.id,this.imgUpload).then(res=>{
       this.modalService.imgUpload$.emit({
         update:true,
-        id:this.modalService.user.id,
+        id:id(),
         img:res.imagen,
         msg:res.msg
       })
@@ -57,5 +69,4 @@ export class ModalImageComponent implements OnInit{
       this.hideModal();
     })
   }
-
 }

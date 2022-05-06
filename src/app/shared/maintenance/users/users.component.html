@@ -58,7 +58,6 @@
                           <span *ngIf="!user.google" class="label label-primary">Email</span>
                         </td>
                         <td class="text-nowrap">
-                            <a href="#" data-toggle="tooltip" data-original-title="Edit"> <i class="fa fa-pencil text-inverse m-r-10"></i> </a>
                             <a *ngIf="!(user.id === usuario.id)" data-toggle="tooltip"  data-original-title="Delete" (click)="deleteUser(user)"> <i class="fa fa-close text-danger cursor"></i> </a>
                         </td>
                     </tr>

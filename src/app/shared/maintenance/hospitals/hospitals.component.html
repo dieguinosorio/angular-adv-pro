@@ -1,0 +1,63 @@
+<div class="row animated fadeIn fast">
+  <div class="col-12">
+      <div class="card">
+          <div class="card-body">
+            <div class="input-group">
+              <div class="input-group-addon"><i class="ti-search"></i></div>
+              <input type="text" class="form-control" placeholder="Buscar hospital...">
+            </div>
+          </div>
+      </div>
+  </div>
+</div>
+
+<div class="row animated fadeIn fast" *ngIf="load">
+  <div class="col-12">
+      <div class="card">
+          <div class="card-body">
+            <div class="alert alert-info text-center">
+              <h4 class="alert-heading">Cargando...</h4>
+              <i class="fa fa-spin fa-refresh fa-2x"></i>
+              <p class="mb-0">Por favor espere</p>
+            </div>
+          </div>
+      </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-12">
+    <div class="card">
+      <div class="card-body">
+        <h4 class="card-title">Hospitales</h4>
+        <div class="table-responsive">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th class="w100">foto</th>
+                        <th>Nombre Hospital</th>
+                        <th class="text-nowrap w100">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let hosp of hospitals">
+                        <td class="text-center cursor"><img class="img-avatar" [src]="hosp.getUrlImg" (click)="showModal(hosp)"></td>
+                        <td *ngIf="!idEdit">{{hosp.nombre}}</td>
+                        <td *ngIf="idEdit && idEdit === hosp.id">
+                          <input type="text" [value]="hosp.nombre">
+                        </td>
+                        <td class="text-nowrap">
+                            <a class="cursor" *ngIf="!idEdit" data-toggle="tooltip" data-original-title="Edit" (click)="idEdit = hosp.id"> <i class="fa fa-pencil text-inverse m-r-10"></i> </a>
+                            <a href="#" data-toggle="tooltip" data-original-title="Delete"> <i class="fa fa-close text-danger"></i> </a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <button class="btn btn-secondary">Anterior</button>
+        &nbsp;
+        <button class="btn btn-secondary">Siguiente</button>
+      </div>
+    </div>
+  </div>
+</div>
+

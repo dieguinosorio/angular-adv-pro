@@ -11,6 +11,8 @@ import { PromesasComponent } from './promesas/promesas.component';
 import { RxjsComponent } from './rxjs/rxjs.component';
 import { ProfileComponent } from './profile/profile.component';
 import { UsersComponent } from '../shared/maintenance/users/users.component';
+import { HospitalsComponent } from '../shared/maintenance/hospitals/hospitals.component';
+import { DoctorsComponent } from '../shared/maintenance/doctors/doctors.component';
 
 
 
@@ -30,6 +32,8 @@ const routes: Routes = [
 
       //Mantenimientos
       { path:'usuarios',component: UsersComponent ,data:{title:'Administracion usuarios'}},
+      { path:'hospitales',component: HospitalsComponent ,data:{title:'Administracion hospitales'}},
+      { path:'medicos',component: DoctorsComponent ,data:{title:'Administracion medicos'}},
     ]
   }
 ];
