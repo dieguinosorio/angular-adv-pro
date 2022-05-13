@@ -4,7 +4,7 @@
           <div class="card-body">
             <div class="input-group">
               <div class="input-group-addon"><i class="ti-search"></i></div>
-              <input type="text" class="form-control" placeholder="Buscar hospital...">
+              <input type="text" class="form-control" placeholder="Buscar hospital..." (keyup)="searchHospitals(filter.value)" #filter>
             </div>
           </div>
       </div>
@@ -28,7 +28,20 @@
   <div class="col-12">
     <div class="card">
       <div class="card-body">
-        <h4 class="card-title">Hospitales</h4>
+        <div class="row">
+          <div class="col-8">
+            <h4 class="card-title">Hospitales</h4>
+            <h4 class="card-subtitle">Listado de hospitales, total: {{totalHosp}}</h4>
+          </div>
+
+          <div class="col">
+            <div class="text-right">
+              <button class="bt btn-primary btn-sm" (click)="createHospital()"><i class="fa fa-plus"></i> Crear Hospital</button>
+            </div>
+          </div>
+
+
+        </div>
         <div class="table-responsive">
             <table class="table table-bordered">
                 <thead>
@@ -40,14 +53,15 @@
                 </thead>
                 <tbody>
                     <tr *ngFor="let hosp of hospitals">
-                        <td class="text-center cursor"><img class="img-avatar" [src]="hosp.getUrlImg" (click)="showModal(hosp)"></td>
-                        <td *ngIf="!idEdit">{{hosp.nombre}}</td>
-                        <td *ngIf="idEdit && idEdit === hosp.id">
-                          <input type="text" [value]="hosp.nombre">
+                        <td class="text-center cursor"><img class="img-avatar" [src]="hosp.img | getImg:'hospitales'" [alt]="hosp.nombre" (click)="showModal(hosp)"></td>
+                        <td *ngIf="idEdit !== hosp.id">{{hosp.nombre}}</td>
+                        <td *ngIf="idEdit === hosp.id">
+                          <input type="text" class="form-control" [(ngModel)]="hosp.nombre" >
                         </td>
                         <td class="text-nowrap">
-                            <a class="cursor" *ngIf="!idEdit" data-toggle="tooltip" data-original-title="Edit" (click)="idEdit = hosp.id"> <i class="fa fa-pencil text-inverse m-r-10"></i> </a>
-                            <a href="#" data-toggle="tooltip" data-original-title="Delete"> <i class="fa fa-close text-danger"></i> </a>
+                            <a class="cursor" *ngIf="(idEdit && idEdit !== hosp.id || !idEdit)"  data-toggle="tooltip" data-original-title="Edit" (click)="idEdit = hosp.id"> <i class="fa fa-pencil text-inverse m-r-10"></i> </a>
+                            <a class="cursor" *ngIf="idEdit && idEdit === hosp.id" data-toggle="tooltip" data-original-title="Edit" (click)="updateHospitals(hosp)"> <i class="fa fa-check text-inverse m-r-10"></i> </a>
+                            <a class="cursor" data-toggle="tooltip" data-original-title="Delete" (click)="deleteHospital(hosp)"> <i class="fa fa-close text-danger"></i> </a>
                         </td>
                     </tr>
                 </tbody>

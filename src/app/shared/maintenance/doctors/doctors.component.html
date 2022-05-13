@@ -4,14 +4,14 @@
           <div class="card-body">
             <div class="input-group">
               <div class="input-group-addon"><i class="ti-search"></i></div>
-              <input type="text" class="form-control" placeholder="Buscar usuario...">
+              <input type="text" class="form-control" placeholder="Buscar doctor..." (keyup)="searchDoctors(filter.value)" #filter>
             </div>
           </div>
       </div>
   </div>
 </div>
 
-<div class="row animated fadeIn fast">
+<div class="row animated fadeIn fast" *ngIf="load">
   <div class="col-12">
       <div class="card">
           <div class="card-body">
@@ -28,28 +28,27 @@
   <div class="col-12">
     <div class="card">
       <div class="card-body">
-        <h4 class="card-title">Usuarios</h4>
+        <h4 class="card-title">Medicos</h4>
+        <div class="col">
+          <div class="text-right">
+            <button class="bt btn-primary btn-sm" ><i class="fa fa-plus"></i> Crear Hospital</button>
+          </div>
+        </div>
         <div class="table-responsive">
             <table class="table table-bordered">
                 <thead>
                     <tr>
-                        <th>Avatar</th>
+                        <th>Foto</th>
                         <th>Nombre</th>
-                        <th>Email</th>
-                        <th>Rol</th>
-                        <th>Auth</th>
-                        <th class="text-nowrap">Action</th>
+                        <th class="text-nowrap">Acciones</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>Lunar probe project</td>
-                        <td>Lunar probe project</td>
-                        <td>Lunar probe project</td>
-                        <td>Lunar probe project</td>
-                        <td>Lunar probe project</td>
-                        <td class="text-nowrap">
-                            <a href="#" data-toggle="tooltip" data-original-title="Edit"> <i class="fa fa-pencil text-inverse m-r-10"></i> </a>
+                    <tr *ngFor="let doc of medicos">
+                        <td class="w100"><img class="img-avatar cursor" [src]="doc.img | getImg:'medicos'" [alt]="doc.nombre" (click)="showModal(doc)"></td>
+                        <td>{{doc.nombre}}</td>
+                        <td class="text-nowrap w100">
+                            <a [routerLink]="['/dashboard/medico',doc.id]" data-toggle="tooltip" data-original-title="Edit"> <i class="fa fa-pencil text-inverse m-r-10"></i> </a>
                             <a href="#" data-toggle="tooltip" data-original-title="Delete"> <i class="fa fa-close text-danger"></i> </a>
                         </td>
                     </tr>

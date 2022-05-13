@@ -13,6 +13,7 @@ import { ProfileComponent } from './profile/profile.component';
 import { UsersComponent } from '../shared/maintenance/users/users.component';
 import { HospitalsComponent } from '../shared/maintenance/hospitals/hospitals.component';
 import { DoctorsComponent } from '../shared/maintenance/doctors/doctors.component';
+import { DoctorComponent } from '../shared/maintenance/doctors/doctor.component';
 
 
 
@@ -34,6 +35,7 @@ const routes: Routes = [
       { path:'usuarios',component: UsersComponent ,data:{title:'Administracion usuarios'}},
       { path:'hospitales',component: HospitalsComponent ,data:{title:'Administracion hospitales'}},
       { path:'medicos',component: DoctorsComponent ,data:{title:'Administracion medicos'}},
+      { path:'medico/:id',component: DoctorComponent ,data:{title:'Actualizacion Medico'}},
     ]
   }
 ];

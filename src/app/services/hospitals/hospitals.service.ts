@@ -25,6 +25,22 @@ export class HospitalsService {
   }
 
   getHospitals(){
-    return this.http.get<CargarHospitales>(`${base_url}/hospitales`)
+    return this.http.get(`${base_url}/hospitales`,this.headers).pipe(
+      map((res:{ok:boolean,hospitales:Hospital[]})=> res)
+    )
   }
+
+  createHospital(nombre:string){
+    return this.http.post(`${base_url}/hospitales`,{nombre},this.headers)
+  }
+
+  updateHospital(hospital:Hospital){
+    const {id,nombre} =  hospital;
+    return this.http.put(`${base_url}/hospitales/${id}`,{nombre}, this.headers)
+  }
+
+  deleteHospital(id:string){
+    return this.http.delete(`${base_url}/hospitales/${id}`,this.headers)
+  }
+
 }

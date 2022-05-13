@@ -1,24 +1,30 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { UsuariosService } from '../../../services/usuarios/usuarios.service' ;
 import { Usuario } from '../../../models/usuarios/usuarios.model';
 import { SearchService } from '../../../services/search.service';
 import swal from 'sweetalert2';
 import { ModalService } from '../../../services/modal.service';
 import { delay } from 'rxjs/operators';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-users',
   templateUrl: './users.component.html',
 })
-export class UsersComponent implements OnInit{
+export class UsersComponent implements OnInit,OnDestroy{
   public usuario!:Usuario;
+  public $imgSubs:Subscription
   constructor(private usuariosService:UsuariosService,private serchService:SearchService,public modalService:ModalService) {
     this.getUsers();
     this.usuario = this.usuariosService.usuario
   }
 
+  ngOnDestroy(): void {
+    this.$imgSubs.unsubscribe()
+  }
+
   ngOnInit(): void {
-    this.modalService.imgUpload$.pipe(delay(100)).subscribe((imgUpdate:any)=>{
+    this.$imgSubs = this.modalService.imgUpload$.pipe(delay(100)).subscribe((imgUpdate:any)=>{
       if(imgUpdate?.update != null){
         if(imgUpdate.update){
           swal.fire({
@@ -115,7 +121,5 @@ export class UsersComponent implements OnInit{
     this.modalService.tipo = 'usuarios'
     this.modalService.showModal('usuarios',user,user.img)
   }
-
-
 
 }
